@@ -48,6 +48,7 @@ var app = new Vue({
       item.text = this.cacheTitle
       this.newTodo = item.text
       this.cacheTodo = {}
+      this.newTodo = ''
     },
     clearTodo: function () {
       this.todos = []
