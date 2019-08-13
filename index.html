@@ -6,7 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <style>
+    .completed {
+      text-decoration: line-through
+    }
+  </style>
 
   <title>Todo List</title>
 </head>
@@ -17,35 +23,34 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon1">待辦事項</span>
       </div>
-      <input type="text" class="form-control" placeholder="準備要做的任務" v-model="newTodo">
+      <input type="text" class="form-control" placeholder="準備要做的任務" v-model="newTodo" @keyup.enter="addTodo()">
       <div class="input-group-append">
-        <button class="btn btn-primary" type="button" @click="addTodo">新增</button>
+        <button class="btn btn-primary" type="button" @click="addTodo()">新增</button>
       </div>
     </div>
     <div class="card text-center">
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
           <li class="nav-item">
-            <a class="nav-link active" href="#">全部</a>
+            <a class="nav-link" :class="{active: visibility=='all'}" @click.prevent="visibility='all'" href="#">全部</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#">進行中</a>
+            <a class="nav-link " :class="{active: visibility=='active'}" @click.prevent="visibility='active'" href="#">進行中</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">已完成</a>
+            <a class="nav-link" :class="{active: visibility=='completed'}" @click.prevent="visibility='completed'" href="#">已完成</a>
           </li>
         </ul>
       </div>
       <ul class="list-group list-group-flush text-left">
-        <li class="list-group-item">
+        <li class="list-group-item" v-for="(item, index) in filteredTodos">
           <div class="d-flex">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="a1">
-              <label class="form-check-label" for="a1">
-                Cras justo odio
+              <input type="checkbox" class="form-check-input" :id="item.id" v-model="item.complete">
+              <label class="form-check-label" :class="{completed: item.complete}" :for="item.id" v-text="item.text">
               </label>
             </div>
-            <button type="button" class="close ml-auto" aria-label="Close">
+            <button type="button" class="close ml-auto" aria-label="Close" @click="removeTodo(index)">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
