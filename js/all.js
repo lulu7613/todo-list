@@ -12,7 +12,7 @@ var app = new Vue({
     ],
     visibility: 'all',
     cacheTodo: {},
-    cacheTitle: ''
+    cacheTitle: '',
   },
   methods: {
     addTodo: function () {
@@ -43,11 +43,14 @@ var app = new Vue({
     cancelEdit: function () {
       this.cacheTodo = {}
     },
-    doneEdit: function(item){
+    doneEdit: function (item) {
       console.log(item);
       item.text = this.cacheTitle
       this.newTodo = item.text
       this.cacheTodo = {}
+    },
+    clearTodo: function () {
+      this.todos = []
     }
   },
   computed: {
@@ -74,6 +77,15 @@ var app = new Vue({
       }
 
       return newTodos
+    },
+    count: function() {
+      let newTodo = []
+      this.todos.forEach(function(item){
+        if (!item.complete) {
+          newTodo.push(item)
+        }
+      })
+      return newTodo.length
     }
   },
 })
