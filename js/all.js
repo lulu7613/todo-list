@@ -11,6 +11,8 @@ var app = new Vue({
       }
     ],
     visibility: 'all',
+    cacheTodo: {},
+    cacheTitle: ''
   },
   methods: {
     addTodo: function () {
@@ -27,12 +29,25 @@ var app = new Vue({
     removeTodo: function (item) {
       // this.todos.splice(index, 1)
       let newIndex = ''
-      this.todos.forEach(function(todo, key){
-        if(item.id === todo.id) {
+      this.todos.forEach(function (todo, key) {
+        if (item.id === todo.id) {
           newIndex = key
         }
       })
       this.todos.splice(newIndex, 1)
+    },
+    editTodo: function (item) {
+      this.cacheTodo = item
+      this.cacheTitle = item.text
+    },
+    cancelEdit: function () {
+      this.cacheTodo = {}
+    },
+    doneEdit: function(item){
+      console.log(item);
+      item.text = this.cacheTitle
+      this.newTodo = item.text
+      this.cacheTodo = {}
     }
   },
   computed: {

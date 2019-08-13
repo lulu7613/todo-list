@@ -43,20 +43,25 @@
         </ul>
       </div>
       <ul class="list-group list-group-flush text-left">
-        <li class="list-group-item" v-for="(item, index) in filteredTodos">
-          <div class="d-flex">
+        <li class="list-group-item" v-for="(item, index) in filteredTodos" @dblclick="editTodo(item)">
+          <div class="d-flex" v-if="cacheTodo.id !== item.id">
             <div class="form-check">
               <input type="checkbox" class="form-check-input" :id="item.id" v-model="item.complete">
-              <label class="form-check-label" :class="{completed: item.complete}" :for="item.id" v-text="item.text">
+              <label class="form-check-label" 
+                :class="{completed: item.complete}" 
+                :for="item.id" 
+                v-text="item.text">
               </label>
             </div>
             <button type="button" class="close ml-auto" aria-label="Close" @click="removeTodo(item)">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-        </li>
-        <li class="list-group-item">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" 
+            v-model="cacheTitle" 
+            @keyup.esc="cancelEdit()"
+            @keyup.enter="doneEdit(item)"
+            v-if="cacheTodo.id == item.id">
         </li>
       </ul>
       <div class="card-footer d-flex justify-content-between">
