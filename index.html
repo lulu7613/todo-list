@@ -17,9 +17,9 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon1">待辦事項</span>
       </div>
-      <input type="text" class="form-control" placeholder="準備要做的任務">
+      <input type="text" class="form-control" placeholder="準備要做的任務" v-model="newTodo">
       <div class="input-group-append">
-        <button class="btn btn-primary" type="button">新增</button>
+        <button class="btn btn-primary" type="button" @click="addTodo">新增</button>
       </div>
     </div>
     <div class="card text-center">
@@ -60,6 +60,8 @@
       </div>
     </div>
   </div>
+
+  <script src="js/all.js"></script>
 </body>
 
 </html>
