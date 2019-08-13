@@ -24,8 +24,15 @@ var app = new Vue({
       })
       this.newTodo = ''
     },
-    removeTodo: function (index) {
-      this.todos.splice(index, 1)
+    removeTodo: function (item) {
+      // this.todos.splice(index, 1)
+      let newIndex = ''
+      this.todos.forEach(function(todo, key){
+        if(item.id === todo.id) {
+          newIndex = key
+        }
+      })
+      this.todos.splice(newIndex, 1)
     }
   },
   computed: {
@@ -50,7 +57,7 @@ var app = new Vue({
           }
         });
       }
-      
+
       return newTodos
     }
   },

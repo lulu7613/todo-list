@@ -50,7 +50,7 @@
               <label class="form-check-label" :class="{completed: item.complete}" :for="item.id" v-text="item.text">
               </label>
             </div>
-            <button type="button" class="close ml-auto" aria-label="Close" @click="removeTodo(index)">
+            <button type="button" class="close ml-auto" aria-label="Close" @click="removeTodo(item)">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
